@@ -1,0 +1,9 @@
+FROM ubuntu:24.04
+
+RUN apt update
+RUN apt upgrade -y
+
+COPY ikev2_ipsec_vpn_strongswan_ipsecconf_vpn_ubuntu.sh /usr/local/bin/setup-strongswan.sh
+RUN chmod +x /usr/local/bin/setup-strongswan.sh
+
+CMD ["/usr/local/bin/setup-strongswan.sh", "testUserName", "testUserPassword"]
