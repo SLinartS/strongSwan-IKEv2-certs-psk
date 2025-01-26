@@ -25,13 +25,24 @@ if [[ -n "$3" ]]; then
 else
     INTERFACE=$(ip route | grep default | sed -e "s/^.*dev.//" -e "s/.proto.*//")
 fi
-echo "your INTERFACE: ${INTERFACE}" 
 
 # GENERATE A SHARED KEY AND GET THE PUBLIC IP ADDRESS
 SHARED_KEY=$(uuidgen)
 IP=$(curl -s api.ipify.org)
 
-echo "Your shared key (PSK) - $SHARED_KEY, your IP - $IP"
+cat << EOF
+
+-----------------------------------------------------------
+    Your INTERFACE: ${INTERFACE}
+-----------------------------------------------------------
+-----------------------------------------------------------
+    Your shared key (PSK): ${SHARED_KEY}
+-----------------------------------------------------------
+-----------------------------------------------------------
+    Your IP: ${IP}
+-----------------------------------------------------------
+
+EOF
 echo -e "Press Enter to continue...\n"
 read -r
 
@@ -190,7 +201,7 @@ systemctl restart strongswan-starter
 # ====================================
 cat << EOF
 -----------------------------------------------------------
-                  Your ca-cert.pem
+    Your ca-cert.pem
 -----------------------------------------------------------
 
 EOF
